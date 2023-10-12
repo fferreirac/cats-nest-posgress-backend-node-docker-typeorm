@@ -1,0 +1,39 @@
+
+# version: "3.8"
+# services:
+#   mysql:
+#     image: mysql:8.0
+#     container_name: mysql_db
+#     restart: always
+#     environment:
+#       MYSQL_ROOT_PASSWORD: root
+#       MYSQL_DATABASE: db_crud
+#       MYSQL_USER: user_peter
+#       MYSQL_PASSWORD: francisco
+#     volumes:
+#       - ./mysql:/var/lib/mysql
+#     ports:
+#       - "3307:3306"
+version: '3.8'  
+services:  
+  db:  
+    container_name: pg_container  
+    image: postgres
+    restart: always  
+    environment:  
+      POSTGRES_USER: root  
+      POSTGRES_PASSWORD: root  
+      POSTGRES_DB: db_crud  
+    ports:  
+      - "5432:5432"  
+  pgadmin:  
+    container_name: pgadmin4_container  
+    image: dpage/pgadmin4  
+    restart: always  
+    environment:  
+      PGADMIN_DEFAULT_EMAIL: peterdeveloper@gmail.com  
+      PGADMIN_DEFAULT_PASSWORD: root
+    volumes:
+      - ./postgres:/var/lib/postgres  
+    ports:  
+      - "5050:80"
