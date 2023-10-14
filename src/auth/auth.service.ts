@@ -4,11 +4,15 @@ import { RegisterDto } from './dto/register.dto';
 
 import * as bcrytjs from 'bcryptjs'; //puede ser un modulo/servicio pero por ahora lo meteremos en el servicio
 import { LoginDto } from './dto/login.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
 
-    constructor(private readonly usersService: UsersService){}
+    constructor(
+        private readonly usersService: UsersService,
+        private readonly jwtService: JwtService
+    ){}
 
 
     async register({name, email, password}: RegisterDto){
@@ -38,6 +42,16 @@ export class AuthService {
             throw new UnauthorizedException('Password is wrong!');
         }
 
-        return user;
+        const payload = { email: user.email};
+
+        const token = await this.jwtService.signAsync(payload);
+
+        //return user;
+        return {
+            token,
+            email,
+        }
     }
 }
+
+
