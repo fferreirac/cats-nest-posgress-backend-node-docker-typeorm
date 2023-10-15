@@ -53,7 +53,7 @@ export class AuthController {
 
     // sustituye al codigode arriba
     @Get('profile')
-    @Auth(Role.ADMIN) 
+    @Auth(Role.USER) 
     profile(@Req() req: RequestWithUser) {
         return this.authService.profile(req.user);
     }

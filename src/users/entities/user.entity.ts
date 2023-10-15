@@ -18,8 +18,8 @@ export class User {
     @Column({nullable: false, select:false })
     password: string;
 
-    @Column({default: 'user', enum: Role}) // cambiamos enum a comun para usarlo en todos lasdos, ejemplo aqui
-    role: string;
+    @Column({type: 'enum',default: Role.USER, enum: Role}) // cambiamos enum a comun para usarlo en todos lasdos, ejemplo aqui, tambien colocamos el type y cambiamos el default
+    role: Role;
 
     @DeleteDateColumn()
     deletedAt: Date;

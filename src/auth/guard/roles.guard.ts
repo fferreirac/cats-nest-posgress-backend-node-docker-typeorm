@@ -17,8 +17,7 @@ export class RolesGuard implements CanActivate {
     context: ExecutionContext,
   ): boolean {
 
-    const role = this.reflector.getAllAndOverride<Role>(ROLES_KEY,
-      [
+    const role = this.reflector.getAllAndOverride<Role>(ROLES_KEY,      [
         context.getHandler(),
         context.getClass()
       ]);
@@ -29,6 +28,14 @@ export class RolesGuard implements CanActivate {
 
       const {user} = context.switchToHttp().getRequest();
     
+      console.log(user);
+      console.log(role)
+      console.log(role === user.role);
+
+      if (user.role === Role.ADMIN){
+        return true;
+      }
+
       return role === user.role;
   }
 }
