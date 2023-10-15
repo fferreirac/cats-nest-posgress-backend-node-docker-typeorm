@@ -24,16 +24,22 @@ export class AuthService {
         }
 
 
-        return await this.usersService.create({
+        await this.usersService.create({
             name, 
             email, 
             password: await bcrytjs.hash(password,10)
         });
+
+        return {
+            name,
+            email,
+          };
         
     }
 
     async login({email, password}: LoginDto){
-        const user = await this.usersService.findOneByEmail(email);
+        //const user = await this.usersService.findOneByEmail(email);
+        const user = await this.usersService.findByEmailWithPassword(email);
         if(!user){
             throw new UnauthorizedException('Email is wrong!');
         }

@@ -11,10 +11,10 @@ export class User {
     @Column()
     name: string;
 
-    @Column({unique:true})
+    @Column({unique:true, nullable: false})
     email: string;
 
-    @Column()
+    @Column({nullable: false, select:false })
     password: string;
 
     @Column({default: 'user'})
