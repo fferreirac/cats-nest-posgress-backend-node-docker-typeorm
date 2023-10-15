@@ -4,6 +4,8 @@ import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { Role } from '../common/enums/role.enum';
 import { Auth } from './decorators/auth.decorator';
+import { ActiveUser } from 'src/common/decorators/active-user-decorator';
+import { UserActiveInterface } from 'src/common/interfaces/user-active.interface';
 /**
  * import { AuthGuard } from './guard/auth.guard';
 import { Roles } from './decorators/roles.decorator';
@@ -54,8 +56,10 @@ export class AuthController {
     // sustituye al codigode arriba
     @Get('profile')
     @Auth(Role.USER) 
-    profile(@Req() req: RequestWithUser) {
-        return this.authService.profile(req.user);
+    //profile(@Req() req: RequestWithUser) {
+    profile(@ActiveUser() user: UserActiveInterface) {
+        console.log(user);
+        return this.authService.profile(user);
     }
 }
 
