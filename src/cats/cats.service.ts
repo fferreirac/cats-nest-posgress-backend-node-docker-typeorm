@@ -40,9 +40,11 @@ export class CatsService {
   }
 
   async findAll( user: UserActiveInterface ) {
-    if(user.role = Role.ADMIN){
+    console.log('userRole: ', user.role);
+    if(user.role === Role.ADMIN){
       return await this.catRepository.find();  
     }
+    console.log('userEmail: ', user.email);
     return await this.catRepository.find({
       where: { userEmail: user.email},
     });
@@ -60,12 +62,21 @@ export class CatsService {
     return cat;
   }
 
-  async update(id: number, updateCatDto: UpdateCatDto) {
-    return await this.catRepository.update(id ,UpdateCatDto);
+  async update(id: number, updateCatDto: UpdateCatDto, user: UserActiveInterface) {
+    
+    await this.findOne(id,user);
+    
+    return await this.catRepository.update(id, {
+      ...updateCatDto,
+      breed: updateCatDto.breed ? await this.validateBreed(updateCatDto.breed) : undefined,
+      userEmail: user.email
+    });
   }
 
-  async remove(id: number) {
-    return await this.catRepository.softDelete({id}); // se ele pasa un id
+  async remove(id: number, user: UserActiveInterface) {
+    
+    await this.findOne(id,user);
+    return await this.catRepository.softDelete({id}); // se le pasa un id
     //return await this.catRepository.softRemove({id}); // se le pasa una instancia
   }
 

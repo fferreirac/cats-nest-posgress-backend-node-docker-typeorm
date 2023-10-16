@@ -30,11 +30,11 @@ export class CatsController {
 
   @Patch(':id')
   update(@Param('id') id: number, @Body() updateCatDto: UpdateCatDto, @ActiveUser() user: UserActiveInterface) { //modifica si el gato es sutyo
-    return this.catsService.update(id, updateCatDto);
+    return this.catsService.update(id, updateCatDto, user);
   }
 
   @Delete(':id')
   remove(@Param('id') id: number, @ActiveUser() user: UserActiveInterface) { //elimina si el gato es de el
-    return this.catsService.remove(id);
+    return this.catsService.remove(id, user);
   }
 }
