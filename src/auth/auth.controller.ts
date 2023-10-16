@@ -4,8 +4,9 @@ import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { Role } from '../common/enums/role.enum';
 import { Auth } from './decorators/auth.decorator';
-import { ActiveUser } from 'src/common/decorators/active-user-decorator';
-import { UserActiveInterface } from 'src/common/interfaces/user-active.interface';
+import { ActiveUser } from '../common/decorators/active-user-decorator';
+import { UserActiveInterface } from '../common/interfaces/user-active.interface';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 /**
  * import { AuthGuard } from './guard/auth.guard';
 import { Roles } from './decorators/roles.decorator';
@@ -14,13 +15,14 @@ import { RolesGuard } from './guard/roles.guard';
 
 
 // hacemos la interface
-interface RequestWithUser extends Request {
-    user: {
-        email: string;
-        role: string;
-    }
-}
+// interface RequestWithUser extends Request {
+//     user: {
+//         email: string;
+//         role: string;
+//     }
+// }
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
 
@@ -54,6 +56,7 @@ export class AuthController {
     }*/
 
     // sustituye al codigode arriba
+    @ApiBearerAuth() // tambien lo podemos colocar en rutas independientes
     @Get('profile')
     @Auth(Role.USER) 
     //profile(@Req() req: RequestWithUser) {
