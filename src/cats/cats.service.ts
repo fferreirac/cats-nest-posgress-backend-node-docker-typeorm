@@ -4,7 +4,8 @@ import { UpdateCatDto } from './dto/update-cat.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cat } from './entities/cat.entity';
 import { Repository } from 'typeorm';
-import { Breed } from 'src/breeds/entities/breed.entity';
+import { Breed } from '../breeds/entities/breed.entity';
+import { UserActiveInterface } from '../common/interfaces/user-active.interface';
 
 @Injectable()
 export class CatsService {
@@ -20,7 +21,7 @@ export class CatsService {
   ) {}
 
 
-  async create(CreateCatDto: CreateCatDto) {
+  async create(CreateCatDto: CreateCatDto, user: UserActiveInterface) { // adicionamos el userActivo
     // const cat = this.catRepository.create(CreateCatDto);
     // return await this.catRepository.save(cat);
     //return await this.catRepository.save(createCatDto);
@@ -31,11 +32,14 @@ export class CatsService {
     return await this.catRepository.save({
       ...CreateCatDto,
       breed,
+      userEmail: user.email  // ahora si le podemos mandar el email del usuario activo
     });
   }
 
-  async findAll() {
-    return await this.catRepository.find();
+  async findAll(user: UserActiveInterface) {
+    return await this.catRepository.find({
+      where: { userEmail: user.email},
+    });
   }
 
   async findOne(id: number) {

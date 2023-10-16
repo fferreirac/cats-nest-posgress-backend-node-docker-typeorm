@@ -1,5 +1,6 @@
-import { Breed } from "src/breeds/entities/breed.entity";
-import { Column, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Breed } from "../../breeds/entities/breed.entity";
+import { User } from "../../users/entities/user.entity";
+import { Column, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Cat {
@@ -25,4 +26,14 @@ export class Cat {
         eager: true, // para que traiga las razas al hacer un findOne 
     })
     breed: Breed;
+
+    // Relacionamos la entidad Cat con su creador (email), es una relacion automatica
+    // con esto no tenemos que instanciar ususrios, sino que le pasmos el email del user creador
+    @ManyToOne(()=> User)
+    @JoinColumn({name: 'userEmail',referencedColumnName: 'email'})
+    user: User;
+    // columna nueva que tendra email del usuario creador de gatos
+    @Column()
+    userEmail: string;
+
 }
