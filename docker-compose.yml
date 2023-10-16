@@ -24,6 +24,8 @@ services:
       POSTGRES_USER: root  
       POSTGRES_PASSWORD: root  
       POSTGRES_DB: db_crud  
+    volumes:
+      - ./postgres:/var/lib/postgres  
     ports:  
       - "5432:5432"  
   pgadmin:  
@@ -34,6 +36,6 @@ services:
       PGADMIN_DEFAULT_EMAIL: peterdeveloper@gmail.com  
       PGADMIN_DEFAULT_PASSWORD: root
     volumes:
-      - ./postgres:/var/lib/postgres  
+      - ./postgres:/var/lib/postgressql/data  
     ports:  
       - "5050:80"

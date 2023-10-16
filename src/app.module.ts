@@ -17,7 +17,6 @@ import { AuthModule } from './auth/auth.module';
       //entities: [__dirname + '/**/*-enti{.ts,.js}'],
       autoLoadEntities: true,
       synchronize: true,
-
     }),
     CatsModule,    
     BreedsModule, UsersModule, AuthModule,  
