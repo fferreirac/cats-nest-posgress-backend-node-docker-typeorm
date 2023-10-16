@@ -25,7 +25,7 @@ export class CatsController {
 
   @Get(':id')
   findOne(@Param('id') id: number, @ActiveUser() user: UserActiveInterface) { //regresa el gato si el lo creo
-    return this.catsService.findOne(id);
+    return this.catsService.findOne(id, user);
   }
 
   @Patch(':id')
