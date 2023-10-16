@@ -3,10 +3,11 @@ import { BreedsService } from './breeds.service';
 import { BreedsController } from './breeds.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Breed } from './entities/breed.entity';
+import { AuthModule } from 'src/auth/auth.module';
 
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Breed])], // 1ra. linea para la comunicacion entre modulos
+  imports: [TypeOrmModule.forFeature([Breed]), AuthModule], // 1ra. linea para la comunicacion entre modulos
   controllers: [BreedsController],
   providers: [BreedsService],
   exports: [TypeOrmModule] // 2da. linea para la comunicacion entre modulos

@@ -26,12 +26,8 @@ export class AuthGuard implements CanActivate {
 
     //de existir hacemos el try/cach (debe estar intectado el servicio: jwtService)
     try {
-      const payload = await this.jwtService.verifyAsync(
-        token,
-        {
-          secret: jwtConstants.secret
-        }
-      );
+      const payload = await this.jwtService.verifyAsync(token
+         /*,{secret: jwtConstants.secret}*/);
       // agregamos e request al usuario
       request['user'] = payload;
     } catch {

@@ -6,9 +6,10 @@ import { Cat } from './entities/cat.entity';
 import { Breed } from 'src/breeds/entities/breed.entity';
 import { BreedsModule } from 'src/breeds/breeds.module';
 import { BreedsService } from 'src/breeds/breeds.service';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Cat]), BreedsModule], // 1ra. linea para la comunicacion entre modulos
+  imports: [TypeOrmModule.forFeature([Cat]), BreedsModule, AuthModule], // 1ra. linea para la comunicacion entre modulos
   controllers: [CatsController],
   providers: [CatsService, BreedsService],
 })
