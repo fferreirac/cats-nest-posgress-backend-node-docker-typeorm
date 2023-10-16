@@ -24,6 +24,15 @@ import { ConfigModule } from '@nestjs/config';
       //entities: [__dirname + '/**/*-enti{.ts,.js}'],
       autoLoadEntities: true,
       synchronize: true,
+      ssl: process.env.POSTGRES_SSL === 'true',
+      extra: {
+        ssl:
+        process.env.POSTGRES_SSL ==='true'
+          ? {
+            rejectUnauthorized: false,
+            }
+          : null,
+      },
     }),
     CatsModule,    
     BreedsModule, UsersModule, AuthModule,  
